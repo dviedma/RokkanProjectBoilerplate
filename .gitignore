@@ -46,6 +46,7 @@ dwsync.xml
 intermediate
 publish/
 .idea/
+.gitignore
 
 # build script local files
 build/buildinfo.properties

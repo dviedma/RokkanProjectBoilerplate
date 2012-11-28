@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE project>
+<project name="Boilerplate Build" default="build" basedir="../"> <!-- one back since we're in build/ -->
+
+
+	<!-- Load in Ant-Contrib to give us access to some very useful tasks! -->
+	<!-- the .jar file is located in the tools directory -->
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+			<pathelement location="${basedir}/build/tools/ant-contrib-1.0b3.jar"/>
+		</classpath>
+	</taskdef>
+
+	<!-- load property files -->
+	<property file="build/config/project.properties"/>
+
+	<!--
+	*************************************************
+	* BASE TARGETS                                  *
+	*************************************************
+	-->
+	<target name="build">
+		<echo message="Compile Sass files, replace SSI and transfer the generated 'publish' folder..."/>
+		<antcall target="-transfer"/>
+	</target>
+
+	<target name="-copy">
+		<echo message="Deleting old 'publish' folder..."/>
+		<delete dir="publish"/>
+
+		<echo message="Creating 'publish' folder..."/>
+		<mkdir dir="publish"/>
+		<copy todir="publish">
+			<fileset dir="./" includes="assets/**,partials/*.html,modal-content/*.html,*.html">
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="-ssireplacement" depends="-copy">
+		<echo message="Replacing SSI..."/>
+
+		<path id="base.path">
+			<pathelement location="build/tools"/>
+			<fileset dir="build/tools">
+				<include name="*.jar"/>
+			</fileset>
+		</path>
+		<java classname="SSIReplacement" fork="true">
+			<classpath refid="base.path"/>
+			<arg value="partials"/>
+			<arg value="publish"/>
+		</java>
+	</target>
+
+	<target name="-transfer" depends="-ssireplacement">
+		<echo message="Transfering..."/>
+		<scp
+				todir="developer@lamp.rokkan.com:/var/www/caesars-dev/booking"
+				verbose="true"
+				password="magicape"
+				sftp="true"
+				trust="true">
+			<fileset dir="publish"/>
+		</scp>
+	</target>
+</project>

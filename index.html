@@ -13,18 +13,22 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
         <link rel="stylesheet" href="assets/css/style.css">
+	    <script src="assets/js/partializr-1.0.0.js"></script>
         <script src="assets/js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
+
+        <!--#include virtual="partials/_header.html" -->
         <div class="container">
 	        <h1>Hello world! This is HTML5 Boilerplate.</h1>
         </div>
+        <!--#include virtual="partials/_footer.html" -->
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-1.8.2.min.js"><\/script>')</script>
         <!--<script src="js/plugins.js"></script>-->
         <script src="assets/js/script.js"></script>
 
