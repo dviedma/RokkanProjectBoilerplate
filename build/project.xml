@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE project>
+<project name="Project Build" default="build" basedir="../">
+	
+    <!-- Use this file to define any custom build targets (for example, automatically deploying via FTP). -->
+	<target name="-ssireplacement" depends="-copy">
+		<echo message="Replacing SSI..."/>
+
+		<path id="base.path">
+			<pathelement location="build/tools"/>
+			<fileset dir="build/tools">
+				<include name="*.jar"/>
+			</fileset>
+		</path>
+		<java classname="SSIReplacement" fork="true">
+			<classpath refid="base.path"/>
+			<arg value="partials"/>
+			<arg value="publish"/>
+		</java>
+	</target>
+
+
+	<!--<target name="-transfer" depends="-ssireplacement">
+		<echo message="Transfering..."/>
+		<scp
+				todir="developer@lamp.rokkan.com:/var/www/caesars-dev/booking"
+				verbose="true"
+				password="****"
+				sftp="true"
+				trust="true">
+			<fileset dir="publish"/>
+		</scp>
+	</target>	-->
+
+</project>
