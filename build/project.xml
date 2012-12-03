@@ -17,6 +17,9 @@
 			<arg value="partials"/>
 			<arg value="publish"/>
 		</java>
+
+		<echo message="Deleting partials folder..."/>
+		<delete dir="publish/partials"/>
 	</target>
 
 
